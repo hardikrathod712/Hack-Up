@@ -1,0 +1,34 @@
+<%- include('partials/header') -%>
+	<div>
+		<img src="images/homepage.png" class="homepage img-fluid">
+	</div>
+
+	<div class="mx-auto mt-5" align="center">
+		<button class="btn btn-primary" style="width: 150px;">Organize</button>
+		<button class="btn btn-primary" style="width: 150px;">Join</button>
+	</div>
+
+	<div class="container col-md-12 p-5 row text-center mt-2 mx-auto d-flex justify-content-center" style="display:flex; flex-wrap: wrap;">
+		<!-- Card -->
+		<% events.forEach(function(event){ %>
+			<div class="card m-2" style="height: 350px; width: 300px;">
+				<div class="card-header view view-cascade gradient-card-header blue-gradient">
+					<h4 class="card-title"><%= event.name %></h4>
+				</div>
+				  <!-- Card content -->
+				  <div class="card-body">
+				    <!-- Title -->
+				    <!-- Text -->
+					<p class="card-text"><%= event.description %></p>
+					<p class="card-text">Start Date: <%= moment(event.startDate).format("MMMM Do YYYY") %></p>
+					<p class="card-text">End Date: <%= moment(event.endDate).format("MMMM Do YYYY") %></p>
+					<p class="card-text">Location: <%= event.address %></p>
+				    <!-- Button -->				    
+				  </div>
+				  <div class="card-footer">
+				  	<button class="btn btn-primary view view-cascade gradient-card-header blue-gradient">Apply</button>
+				  </div>
+			</div>
+		<% }); %>
+	</div>
+<%- include('partials/footer') -%>

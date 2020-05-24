@@ -1,0 +1,275 @@
+<%- include('../partials/header') -%>
+<style>
+    input[type=file]{
+        color: transparent;
+    }
+    .user{
+        width: 150px;
+        height: 150px;
+        align-items: center;
+        border-radius: 100%;
+    }
+    img:hover{
+        box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+    }
+</style>
+<script>
+    function readURL(input)
+    {
+        if (input.files && input.files[0]) 
+        {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#userimg').attr('src', e.target.result);
+                $('#userimg').hide();
+                $('#userimg').fadeIn(650);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+<div class="container mt-5 col-md-11">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="mx-auto">
+                            <a onclick="document.getElementById('imageUpload').click(); return false;">
+                                <img id="userimg" class="user hoverable" src="images/user.jpg">
+                            </a>
+                        </div>
+                        <div class="mx-auto">
+                            <input type="file" onchange="readURL(this);" id="imageUpload" style="visibility: hidden;" accept=".png, .jpg, .jpeg"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h4 class="mx-auto"><%= currentUser.firstname %> <%= currentUser.lastname %></h4>
+                    </div>
+                    <div class="row">
+                        <h6 class="mx-auto"><%= currentUser.username %></h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="card" style="height: 580px;">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#personal" role="tab" aria-controls="home"
+                        aria-selected="true">Personal Details</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#education" role="tab" aria-controls="profile"
+                        aria-selected="false">Education</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#project" role="tab" aria-controls="contact"
+                        aria-selected="false">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="activity-tab" data-toggle="tab" href="#activity" role="tab" aria-controls="activity"
+                          aria-selected="false">Activity</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="personal" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="row mt-4 mx-auto">
+                            <div class="row ml-3">
+                                <h5><i class="fa fa-user mgr-10 profile-icon"></i>  About</h5>
+                            </div>
+                            <div class="row mt-3 ml-3">
+                                <div class="col-sm-6">
+                                    <div class="row mgbt-xs-0">
+                                        <label class="col-xs-5 control-label">First Name: </label>
+                                        <div class="col-xs-7 controls"> <%= currentUser.firstname %></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="row mgbt-xs-0">
+                                        <label class="col-xs-5 control-label">Last Name: </label>
+                                        <div class="col-xs-7 controls"> <%= currentUser.lastname %></div>
+                                        <!-- col-sm-10 --> 
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                  <div class="row mgbt-xs-0">
+                                    <label class="col-xs-5 control-label">User Name: </label>
+                                    <div class="col-xs-7 controls"> <%= currentUser.username %></div>
+                                    <!-- col-sm-10 --> 
+                                  </div>
+                                </div>
+                                <div class="col-sm-6">
+                                  <div class="row mgbt-xs-0">
+                                    <label class="col-xs-5 control-label">Email: </label>
+                                    <div class="col-xs-7 controls"> <%= currentUser.username %></div>
+                                    <!-- col-sm-10 --> 
+                                  </div>
+                                </div>
+                                <div class="col-sm-6">
+                                  <div class="row mgbt-xs-0">
+                                    <label class="col-xs-5 control-label">City: </label>
+                                    <div class="col-xs-7 controls"> Mumbai</div>
+                                    <!-- col-sm-10 --> 
+                                  </div>
+                                </div>
+                                <div class="col-sm-6">
+                                  <div class="row mgbt-xs-0">
+                                    <label class="col-xs-5 control-label">Country: </label>
+                                    <div class="col-xs-7 controls"> India</div>
+                                    <!-- col-sm-10 --> 
+                                  </div>
+                                </div>
+                                <div class="col-sm-6">
+                                  <div class="row mgbt-xs-0">
+                                    <label class="col-xs-5 control-label">Birthday: </label>
+                                    <div class="col-xs-7 controls"> May 29, 1998</div>
+                                    <!-- col-sm-10 --> 
+                                  </div>
+                                </div>
+                                <div class="col-sm-6">
+                                  <div class="row mgbt-xs-0">
+                                    <label class="col-xs-5 control-label">Interests: </label>
+                                    <div class="col-xs-7 controls"> Football, Web, Design, etc.</div>
+                                    <!-- col-sm-10 --> 
+                                  </div>
+                                </div>
+                                <div class="col-sm-6">
+                                  <div class="row mgbt-xs-0">
+                                    <label class="col-xs-5 control-label">Phone: </label>
+                                    <div class="col-xs-7 controls"> +91-9167684879</div>
+                                    <!-- col-sm-10 --> 
+                                  </div>
+                                </div>
+    
+                            </div>
+                        </div>
+                        <div class="row mt-4 mb-5 mx-auto">
+                            <div class="col-sm-5">
+                                <h5><i class="fa fa-flask mgr-10 profile-icon"></i>  Skills </h5>
+                                <div class="mt-3 skill-list">
+                                  <div class="skill-name"> Python </div>
+                                  <div class="progress  progress-sm">
+                                    <div style="width: 90%;" aria-valuemax="100" aria-valuemin="0" aria-valuenow="90" role="progressbar" class="progress-bar progress-bar-success "> <span class="sr-only">90%</span> </div>
+                                  </div>
+                                </div>
+                                <div class="skill-list">
+                                  <div class="skill-name"> Java </div>
+                                  <div class="progress  progress-sm">
+                                    <div style="width: 20%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="20" role="progressbar" class="progress-bar progress-bar-danger "> <span class="sr-only">20%</span> </div>
+                                  </div>
+                                </div>
+                                <div class="skill-list">
+                                  <div class="skill-name"> PHP </div>
+                                  <div class="progress  progress-sm">
+                                    <div style="width: 50%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="50" role="progressbar" class="progress-bar progress-bar-warning "> <span class="sr-only">50% Complete</span> </div>
+                                  </div>
+                                </div>
+                                <div class="skill-list">
+                                  <div class="skill-name"> Javascript </div>
+                                  <div class="progress  progress-sm">
+                                    <div style="width: 60%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="60" role="progressbar" class="progress-bar progress-bar-info "> <span class="sr-only">60% Complete</span> </div>
+                                  </div>
+                                </div>
+                                <div class="skill-list">
+                                  <div class="skill-name"> Communication </div>
+                                  <div class="progress  progress-sm">
+                                    <div style="width: 95%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="95" role="progressbar" class="progress-bar progress-bar-success "> <span class="sr-only">95% Complete</span> </div>
+                                  </div>
+                                </div> 
+                                <div class="skill-list">
+                                  <div class="skill-name"> Writing </div>
+                                  <div class="progress  progress-sm">
+                                    <div style="width: 45%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-warning "> <span class="sr-only">45% Complete</span> </div>
+                                  </div>
+                                </div>                                 
+                              </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="education" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="col-sm-8 ml-3">
+                            <div class="row mt-4 mb-2">
+                                <h5><i class="fa fa-trophy mgr-10 profile-icon"></i>  Education</h5>
+                            </div>
+                            <div class="content-list content-menu">
+                              <ul class="list-wrapper">
+                                <br>
+                                <li>
+                                    <h5><i class="fa fa-circle-o"></i>Bachelor's degree, Computer Engineering</h5>
+                                    <h6>  K.J. Somaiya College of Engineering, Vidyavihar</h6>
+                                    <h6>  August 2016 ~ June 2020 </h6>
+                                </li>
+                                <br>
+                                <li class="mb-1">
+                                    <h5><i class="fa fa-circle-o"></i>Higher Secondary Certificate</h5>
+                                    <h6>  Nirmala Memorial Foundation College, Kandivali</h6>
+                                    <h6>  June 2014 ~ June 2016 </h6>
+                                </li>
+                                <br>
+                                <li>
+                                    <h5><i class="fa fa-circle-o"></i>Secondary School Certificate</i></h5>
+                                    <h6>  Dhanamal High School, Kandivali</h6>
+                                    <h6>  May 2014 </h6>
+                                </li>
+                              </ul>
+                            </div>            
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="project" role="tabpanel" aria-labelledby="contact-tab">
+                        <div class="col-sm-8 ml-3">
+                            <div class="row mt-4 mb-2">
+                                <h5><i class="fa fa-trophy mgr-10 profile-icon"></i>  Projects</h5>
+                            </div>
+                            <div class="content-list content-menu">
+                              <ul class="list-wrapper">
+                                <br>
+                                <li>
+                                    <h5><i class="fa fa-circle-o"></i>Scholarship Portal Website</h5>
+                                    <h6>A Scholarships Portal where student can find scholarships based on their filter or eligibility.
+                                        Details of Scholarship along with official site link.</h6>
+                                    <h6>Developed using node.js as backend technology and Bootstrap for frontend.</h6>
+                                    <h6><a href="https://github.com/hardikrathod712/Scholarship-Portal">https://github.com/hardikrathod712/Scholarship-Portal</a></h6>
+                                </li>
+                                <br>
+                                <li>
+                                    <h5><i class="fa fa-circle-o"></i>Tourista Website</h5>
+                                    <h6>A website used to search for travel guides, hotels and places of attraction of various tourist
+                                        destinations across India.</h6>
+                                    <h6>The website will also provide with details of all the spots of attraction at each tourist places.</h6>
+                                    <h6>Developed using PHP as backend technology and Bootstrap for frontend.</h6>
+                                    <h6><a href="https://github.com/hardikrathod712/Tourista">https://github.com/hardikrathod712/Tourista</a></h6>
+                                </li>
+                                <br>
+                                <li>
+                                    <h5><i class="fa fa-circle-o"></i>Scholarship Portal Website</h5>
+                                    <h6>A java executable application (jar -java archive)- which enables user to select a file to zip and
+                                        unzip. (made using inbuilt java packages).</h6>
+                                    <h6>Developed using java swing in NetBeans.</h6>
+                                    <h6><a href="https://github.com/hardikrathod712/Compression">https://github.com/hardikrathod712/Compression</a></h6>
+                                </li>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="activity" role="tabpanel" aria-labelledby="activity-tab">
+                        <div class="col-sm-8 ml-3">
+                            <div class="row mt-4 mb-2">
+                                <h5><i class="fa fa-trophy mgr-10 profile-icon"></i>  Hackathons</h5>
+                            </div>
+                            <div class="content-list content-menu">
+                                <ul class="list-wrapper">
+                                    <br>
+                                    <li>
+                                        <h5><i class="fa fa-circle-o"></i>KJSCE Hackathon</h5>
+                                        <h6>KJSCE Hackathon Organised by KJSCE Codecell Council</h6>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+</div>
+<%- include('../partials/footer') -%>

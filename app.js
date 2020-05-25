@@ -7,6 +7,7 @@ var User = require("./models/user");
 var Event = require("./models/event");
 var bodyParser = require("body-parser");
 var seedDB = require("./data");
+var methodOverride = require('method-override');
 
 var indexroute = require("./routes/index");
 
@@ -27,7 +28,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 // seedDB();
-
+app.use(methodOverride("_method"));
 app.use(function(req, res, next){
 	res.locals.currentUser = req.user;
 	next();

@@ -68,8 +68,8 @@
                         aria-selected="false">Projects</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="activity-tab" data-toggle="tab" href="#activity" role="tab" aria-controls="activity"
-                          aria-selected="false">Activity</a>
+                        <a class="nav-link" id="hackathon-tab" data-toggle="tab" href="#hackathon" role="tab" aria-controls="hackathon"
+                          aria-selected="false">Hackathons</a>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
@@ -251,19 +251,23 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="activity" role="tabpanel" aria-labelledby="activity-tab">
+                    <div class="tab-pane fade" id="hackathon" role="tabpanel" aria-labelledby="hackathon-tab">
                         <div class="col-sm-8 ml-3">
                             <div class="row mt-4 mb-2">
                                 <h5><i class="fa fa-trophy mgr-10 profile-icon"></i>  Hackathons</h5>
                             </div>
                             <div class="content-list content-menu">
+                                <% hackathons.forEach(function(hackathon) { %>
                                 <ul class="list-wrapper">
                                     <br>
                                     <li>
-                                        <h5><i class="fa fa-circle-o"></i>KJSCE Hackathon</h5>
-                                        <h6>KJSCE Hackathon Organised by KJSCE Codecell Council</h6>
+                                        <h5><i class="fa fa-circle-o"></i><%= hackathon.name %></h5>
+                                        <h6><%= hackathon.desc %></h6>
                                     </li>
+                                    <form id="delete" action="/apply/<%= hackathon._id %>?_method=DELETE" method="POST">
+                                    <button class="btn btn-danger">Delete Application</button></form>
                                 </ul>
+                                <% }); %>
                             </div>
                         </div>
                     </div>

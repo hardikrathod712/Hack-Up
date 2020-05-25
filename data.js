@@ -18,7 +18,15 @@ var data = [
 	website: "djsce.com",
 	description: "DJSCE Hackathon Organised by DJSCE Student Council",
 	address: "D.J. Sanghvi College of Engineering, Vile Parle"
-}
+},
+{
+	name: "SPIT Hackathon",
+	startDate: new Date("2020-03-21"),
+	endDate: new Date("2020-03-22"),
+	website: "	spit.com",
+	description: "SPIT Hackathon Organised by SPIT Codecell Council",
+	address: "SPIT"
+},
 ];
 
 function seedDB(){

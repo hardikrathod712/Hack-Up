@@ -10,25 +10,46 @@
 
 	<div class="container col-md-12 p-5 row text-center mt-2 mx-auto d-flex justify-content-center" style="display:flex; flex-wrap: wrap;">
 		<!-- Card -->
+		<% var i = 0 %>
 		<% events.forEach(function(event){ %>
-			<div class="card m-2" style="height: 350px; width: 300px;">
-				<div class="card-header view view-cascade gradient-card-header blue-gradient">
-					<h4 class="card-title"><%= event.name %></h4>
+			<!--<form method="POST" action="http://localhost:3000/apply">-->
+				<div class="card m-2" style="height: 350px; width: 300px;">
+					<div class="card-header view view-cascade gradient-card-header blue-gradient">
+						<h4 class="card-title" id="nameid_<%= i %>" ><%= event.name %></h4>
+					</div>
+					  <!-- Card content -->
+					  <div class="card-body">
+					    <!-- Title -->
+					    <!-- Text -->
+						<p class="card-text" id="descid_<%= i %>"><%= event.description %></p>
+						<p class="card-text">Start Date: <%= moment(event.startDate).format("MMMM Do YYYY") %></p>
+						<p class="card-text">End Date: <%= moment(event.endDate).format("MMMM Do YYYY") %></p>
+						<p class="card-text">Location: <%= event.address %></p>
+					    <!-- Button -->				    
+					  </div>
+					  <div class="card-footer">
+					  	<button class="btn btn-primary view view-cascade gradient-card-header blue-gradient" data-ref="<%= i     %>">Apply</button>
+					  </div>
 				</div>
-				  <!-- Card content -->
-				  <div class="card-body">
-				    <!-- Title -->
-				    <!-- Text -->
-					<p class="card-text"><%= event.description %></p>
-					<p class="card-text">Start Date: <%= moment(event.startDate).format("MMMM Do YYYY") %></p>
-					<p class="card-text">End Date: <%= moment(event.endDate).format("MMMM Do YYYY") %></p>
-					<p class="card-text">Location: <%= event.address %></p>
-				    <!-- Button -->				    
-				  </div>
-				  <div class="card-footer">
-				  	<button class="btn btn-primary view view-cascade gradient-card-header blue-gradient">Apply</button>
-				  </div>
-			</div>
+			<!--</form>-->
+		<% i = i+1; %>
 		<% }); %>
 	</div>
+	<script>
+		$('button').each(function() {
+		  $(this).on('click', function() {
+		     myFN($(this).attr("data-ref"));
+		     console.log("Click");
+		  })
+		});
+
+		function myFN(val) {
+		  var eventName = document.getElementById("nameid_" + val).innerHTML;
+		  var eventDesc = document.getElementById("descid_" + val).innerHTML;
+		  console.log(eventName);
+		  $.post("http://localhost:3000/apply", { name: eventName, desc: eventDesc },function(data) {
+		  	$('body').replaceWith(data);
+		  });
+		}
+	</script>
 <%- include('partials/footer') -%>

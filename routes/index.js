@@ -4,6 +4,7 @@ var router = express.Router();
 var passport = require("passport");
 var User = require("../models/user");
 var Event = require("../models/event");
+var middleware = require("../middleware");
 
 router.get("/",function(req,res){
 	Event.find({}, function(err, foundEvents){
@@ -12,6 +13,37 @@ router.get("/",function(req,res){
 		}
 		else{
 			res.render("index", {events: foundEvents,moment:moment});
+		}
+	});
+});
+
+router.post("/apply", middleware.isLoggedIn, function(req, res) {
+	console.log(req.body.name);
+
+	var hackathon = {"name": req.body.name, "desc": req.body.desc};
+	
+	User.findOneAndUpdate({username: res.locals.currentUser.username}, {$push: {hackathons: hackathon}}, function(err, hackathon) {
+		if(err) {
+			console.log(err);
+			res.redirect("/");
+		}
+		else {
+			console.log("Successfull: " + hackathon);
+			res.redirect("/profile");
+		}
+	});
+
+});
+
+router.delete("/apply/:id", function(req, res) {
+	console.log(req.params.id);
+	User.updateOne({username: res.locals.currentUser.username}, {$pull: {hackathons: { _id : req.params.id }}}, function(err, foundUser) {
+		if(err) {
+			console.log(err);
+		}
+		else {
+			console.log(foundUser.hackathons);
+			res.redirect("/profile");
 		}
 	});
 });
@@ -42,7 +74,6 @@ router.post("/signup", function(req, res){
 			successRedirect: "/profile", 
 			failureRedirect: "/signup"
 		})(req, res, function(){
-			// req.flash("success", "Welcome to YelpCamp " + user.username + "!!");
 			console.log('Signed up');
 		});
 	});
@@ -51,12 +82,21 @@ router.post("/signup", function(req, res){
 //logout route
 router.get("/logout", function(req, res){
 	req.logout();
-	// req.flash("success", "Logged you out!!");
 	res.redirect("/");
 });
 
-router.get("/profile", function(req, res){
-	res.render('user/profile');
+router.get("/profile", middleware.isLoggedIn ,function(req, res){
+
+	User.findOne({username: res.locals.currentUser.username}, function(err, foundUser) {
+		if(err) {
+			console.log(err);
+			res.redirect("/signin");
+		}
+		else {
+			console.log(foundUser.hackathons);
+			res.render('user/profile', {hackathons: foundUser.hackathons});
+		}
+	});
 });
 
 module.exports = router;
